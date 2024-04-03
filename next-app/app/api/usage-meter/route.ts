@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
-import { stripe } from '../../../utils/stripe';
-import { supabaseAdmin } from '../../../utils/supabaseServer';
+import { stripe } from '@/utils/stripe';
+import { supabaseAdmin } from '@/utils/supabaseServer';
+import { randomBytes } from 'crypto';
 
 export async function POST(request: Request) {
     try {
@@ -47,6 +48,9 @@ export async function POST(request: Request) {
                 quantity: 1,
                 timestamp: 'now',
                 action: "increment"
+            },
+            {
+                idempotencyKey: randomBytes(16).toString('hex')
             }
         );
 

@@ -1,29 +1,20 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/utils/stripe';
 
-// Embedded Sessions
-
 export async function POST(request: Request) {
     try {
         const { priceId } = await request.json();
 
         const session = await stripe.checkout.sessions.create({
             ui_mode: 'embedded',
-
             payment_method_types: ['card'],
             line_items: [
                 {
-                    // base subscription
                     price: priceId,
-                },
-                {
-                    // one-time setup fee
-                    price: 'price_1OtHdOBF7AptWZlcPmLotZgW',
-                    quantity: 1,
                 },
             ],
             mode: 'subscription',
-            return_url: `${request.headers.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}`,
+            return_url: `${request.headers.get('origin')}/return?session_id={CHECKOUT_SESSION_ID}`,
         });
 
         return NextResponse.json({ id: session.id, client_secret: session.client_secret });
@@ -33,7 +24,7 @@ export async function POST(request: Request) {
     }
 }
 
-// For embedded sessions
+// Optional (unused in demo): Add a GET route to retrieve the session
 export async function GET(request: Request) {
     try {
         const { searchParams } = new URL(request.url);
