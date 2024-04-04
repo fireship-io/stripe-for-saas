@@ -19,7 +19,7 @@ export async function POST(request: Request) {
 
         return NextResponse.json({ id: session.id, client_secret: session.client_secret });
     } catch (error: any) {
-      console.error(error);
+        console.error(error);
         return NextResponse.json({ message: error.message }, { status: 500 });
     }
 }
@@ -38,7 +38,7 @@ export async function GET(request: Request) {
 
         return NextResponse.json({ session });
     } catch (error: any) {
-      console.error(error);
+        console.error(error);
         return NextResponse.json({ message: error.message }, { status: 500 });
     }
 }

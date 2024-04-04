@@ -51,7 +51,7 @@ app.get('/success', (c) => {
 })
 
 app.get('/cancel', (c) => {
-  return c.text('Hello Hono!')
+  return c.text('Cancelled!')
 })
 
 
@@ -63,7 +63,7 @@ app.post('/checkout', async (c) => {
       payment_method_types: ['card'],
       line_items: [
         {
-          price: 'price_1OqkU6BF7AptWZlcpIINrWBU',
+          price: 'price_XXXXXXXXXXXXXX',
           quantity: 1,
         },
       ],
@@ -94,7 +94,7 @@ app.post('/subscribe', async (c) => {
       ],
       mode: 'subscription',
       success_url: 'http://localhost:3000/success',
-      cancel_url: 'http://localhost:3000//cancel',
+      cancel_url: 'http://localhost:3000/cancel',
     });
 
     return c.json(session);
@@ -150,9 +150,10 @@ app.post('/webhook', async (c) => {
 
 
 const port = 3000
-console.log(`Server is running on port ${port}`)
 
 serve({
   fetch: app.fetch,
   port
+}, (info) => {
+  console.log(`Server is running on port ${info.port}`)
 })

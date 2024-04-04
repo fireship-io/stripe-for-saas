@@ -18,7 +18,7 @@ export async function POST(request: Request) {
                 },
                 {
                     // one-time setup fee
-                    price: 'price_1OtHdOBF7AptWZlcPmLotZgW',
+                    price: 'price_XXXXXXXXXXXXXXXXXXXX',
                     quantity: 1,
                 },
             ],
@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 
         return NextResponse.json({ id: session.id, client_secret: session.client_secret });
     } catch (error: any) {
-      console.error(error);
+        console.error(error);
         return NextResponse.json({ message: error.message }, { status: 500 });
     }
 }

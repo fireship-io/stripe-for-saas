@@ -24,8 +24,8 @@ export async function POST(request: NextRequest) {
 
         // Create or update the stripe_customer_id in the stripe_customers table
         const { error } = await supabaseAdmin
-        .from('stripe_customers')
-        .upsert({ user_id: userId, stripe_customer_id: session.customer, subscription_id: session.subscription, plan_active: true, plan_expires: null })
+          .from('stripe_customers')
+          .upsert({ user_id: userId, stripe_customer_id: session.customer, subscription_id: session.subscription, plan_active: true, plan_expires: null })
 
 
       }
@@ -45,9 +45,9 @@ export async function POST(request: NextRequest) {
         console.log(subscription);
 
         const { error } = await supabaseAdmin
-        .from('stripe_customers')
-        .update({ plan_active: false, subscription_id: null })
-        .eq('subscription_id', subscription.id);
+          .from('stripe_customers')
+          .update({ plan_active: false, subscription_id: null })
+          .eq('subscription_id', subscription.id);
       }
   
       return NextResponse.json({ statusCode: 200, message: 'success' });

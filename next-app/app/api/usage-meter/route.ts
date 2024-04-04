@@ -56,8 +56,10 @@ export async function POST(request: Request) {
 
         console.log(usageRecord);
 
-
-        return NextResponse.json({ message: 'Usage record created successfully!', total_downloads: customer.total_downloads + 1 }, { status: 200 });
+        return NextResponse.json({
+            message: 'Usage record created successfully!',
+            total_downloads: customer.total_downloads + 1
+        }, { status: 200 });
 
 
     } catch (error: any) {
